@@ -3,12 +3,13 @@ jobs:
   build:
     docker:
       - image: node:11.10.1
-    working_directory: ~/cicle-practice/my-app
+    working_directory: ~/my-repos
     branches:
       only:
         - master
     steps:
       - checkout
+      - run: cd cicleci-practice/my-app
       - run: npm install
       - run: npm run test
       - run: npm run build
