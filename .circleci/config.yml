@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: node:11.10.1
-    working_directory: ~/my-app
+    working_directory: ~/repo
     branches:
       only:
         - master
