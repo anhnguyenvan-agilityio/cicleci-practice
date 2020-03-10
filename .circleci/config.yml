@@ -9,9 +9,5 @@ jobs:
         - master
     steps:
       - checkout
-      - run: ls
-      - run: cd my-app
-      - run: npm install
-      - run: npm run test
-      - run: npm run build
-      - run: npm run netlify:deploy
+      - run:
+          command: cd my-app && npm install && npm run test && npm run build && npm run netlify:deploy
