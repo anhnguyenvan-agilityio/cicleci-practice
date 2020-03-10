@@ -9,6 +9,7 @@ jobs:
         - master
     steps:
       - checkout
+      - run: ls
       - run: cd cicleci-practice/my-app
       - run: npm install
       - run: npm run test
