@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: node:11.10.1
-    working_directory: ~/repo
+    working_directory: ~/cicle-practice/my-app
     branches:
       only:
         - master
