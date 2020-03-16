@@ -45,7 +45,7 @@ jobs:
       - image: node:11.10.1
     steps:
       - attach_workspace:
-          at: my-app
+          at: .
       - run:
           name: Unit test
           command: |
