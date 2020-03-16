@@ -53,3 +53,14 @@ jobs:
           name: Unit test
           command: |
             npm run test
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - build:
+          branches:
+            only:
+              - master
+      - test:
+          requires:
+            - build
