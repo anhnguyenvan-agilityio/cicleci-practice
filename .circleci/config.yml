@@ -49,6 +49,7 @@ jobs:
       - run:
           name: Unit test
           command: |
+            cd my-app
             npm run test
 workflows:
   version: 2
