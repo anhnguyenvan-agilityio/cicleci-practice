@@ -51,6 +51,21 @@ jobs:
           command: |
             cd my-app
             npm run test
+  netlify:
+    working_directory: ~/my-repos
+    docker:
+      - image: node:11.10.1
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Netlify CLI Setup
+          command: |
+            npm install netlify-cli -g
+      - run:
+          - cd my-app
+          - npm run build
+          - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=./build
 workflows:
   version: 2
   deploy:
@@ -63,3 +78,14 @@ workflows:
       - test:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - master
+      - netlify:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
