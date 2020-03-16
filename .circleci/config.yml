@@ -1,24 +1,55 @@
+# version: 2
+# jobs:
+#   build:
+#     docker:
+#       - image: node:11.10.1
+#     working_directory: ~/my-repos
+#     branches:
+#       only:
+#         - master
+#     steps:
+#       - checkout
+#       - run:
+#           name: Netlify CLI Setup
+#           command: |
+#             npm install netlify-cli -g
+#       - run:
+#           command: |
+#             cd my-app
+#             npm install
+#             npm run test
+#             npm run build
+#             echo $NETLIFY_SITE_ID
+#             echo $NETLIFY_ACCESS_TOKEN
+#             netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=./build
 version: 2
 jobs:
   build:
+    working_directory: ~/my-repos
     docker:
       - image: node:11.10.1
-    working_directory: ~/my-repos
-    branches:
-      only:
-        - master
+    # branches:
+    #   only:
+    #     - master
     steps:
       - checkout
       - run:
-          name: Netlify CLI Setup
-          command: |
-            npm install netlify-cli -g
-      - run:
+          name: Install environments
           command: |
             cd my-app
             npm install
+      - persist_to_workspace:
+          root: ~/my-repos
+          paths:
+            - ./my-app
+  test:
+    working_directory: ~/my-repos
+    docker:
+      - image: node:11.10.1
+    steps:
+      - attach_workspace:
+          at: my-app
+      - run:
+          name: Unit test
+          command: |
             npm run test
-            npm run build
-            echo $NETLIFY_SITE_ID
-            echo $NETLIFY_ACCESS_TOKEN
-            netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=./build
