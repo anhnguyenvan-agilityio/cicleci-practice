@@ -38,7 +38,7 @@ jobs:
       - persist_to_workspace:
           root: ~/my-repos
           paths:
-            - ./my-app
+            - .
   test:
     working_directory: ~/my-repos
     docker:
