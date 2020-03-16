@@ -28,9 +28,6 @@ jobs:
     working_directory: ~/my-repos
     docker:
       - image: node:11.10.1
-    # branches:
-    #   only:
-    #     - master
     steps:
       - checkout
       - run:
@@ -58,9 +55,10 @@ workflows:
   deploy:
     jobs:
       - build:
-          branches:
-            only:
-              - master
+          filters:
+            branches:
+              only:
+                - master
       - test:
           requires:
             - build
