@@ -78,6 +78,7 @@ workflows:
               only:
                 - master
       - test:
+          type: approval
           requires:
             - build
           filters:
