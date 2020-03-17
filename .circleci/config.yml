@@ -30,11 +30,20 @@ jobs:
       - image: node:11.10.1
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - npm-anhnguyen-{{ arch }}-{{ .Branch }}-{{ checksum "my-app/package.json" }}
+            - npm-anhnguyen-{{ arch }}-{{ .Branch }}
+            - npm-anhnguyen-{{ arch }}
       - run:
           name: Install environments
           command: |
             cd my-app
             npm install
+      - save_cache:
+          key: npm-anhnguyen-{{ arch }}-{{ .Branch }}-{{ checksum "my-app/package.json" }}
+          paths:
+            - my-app/node_modules
       - persist_to_workspace:
           root: ~/my-repos
           paths:
